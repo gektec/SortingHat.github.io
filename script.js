@@ -52,10 +52,10 @@ Example JSON Output:{"hat_response": "You thrive in the heart of the community, 
         const data = await response.json();
         const reply = data.choices[0].message.content;
 
-        log.innerHTML += `<div><strong>OpenAI:</strong> ${reply}</div>`;
+        log.innerHTML += `<div><strong>SortingHat:</strong> ${reply}</div>`;
         log.scrollTop = log.scrollHeight;
     } catch (error) {
-        log.innerHTML += `<div><strong>OpenAI:</strong> Error: ${error.message}</div>`;
+        log.innerHTML += `<div><strong>SortingHat:</strong> Error: ${error.message}</div>`;
         log.scrollTop = log.scrollHeight;
     }
 }
