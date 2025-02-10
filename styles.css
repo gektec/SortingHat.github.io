@@ -1,0 +1,17 @@
+.container {
+    width: 80%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.log {
+    height: 300px;
+    overflow: auto;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.input-box {
+    width: calc(100% - 22px);
+    padding: 10px;
+}
