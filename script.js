@@ -20,7 +20,7 @@ async function sendMessage() {
     log.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
 
     try {
-        const response = await fetch("https://burn.hair/v1", {
+        const response = await fetch("https://burn.hair/v1/chat/completions/", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${apiKey}`,
