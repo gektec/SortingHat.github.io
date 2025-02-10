@@ -1,4 +1,4 @@
-const apiKey = "sk-e4ue4qbCRSrw2aWb9777B3120820441cB6Bf4aB81a047e58"; 
+const apiKey = "sk-ca9ff20b4192425b95ed6ae25d804e6a"; 
 
 document.getElementById('sendButton').addEventListener('click', sendMessage);
 document.getElementById('inputBox').addEventListener('keypress', function(e) {
@@ -20,14 +20,14 @@ async function sendMessage() {
     log.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
 
     try {
-        const response = await fetch("https://burn.hair/v1/chat/completions/", {
+        const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${apiKey}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "gpt-4o-mini",
+                model: "deepseek-chat",
                 messages: [
                     { role: "system", content: `You embody the enchanted Sorting Hat of Hogwarts. Your duty extends beyond the mere sorting of students; it involves astute analysis of their character traits and aligning them with the appropriate house. Each house represents distinct values: bravery for Gryffindor, loyalty for Hufflepuff, intelligence for Ravenclaw, and ambition for Slytherin. The Hat scores the affinity of the student towards each house from 0 (least aligned) to 10 (most aligned). Your responses should be poetic, under 3 sentences, reflecting the quintessence of British English, and MUST be formatted in JSON for clarity. Do not contain Code block .
 Should a student (user) appear uncertain or hesitant to articulate their qualities, you, as the Sorting Hat, will gently prod their thinking by suggesting questions they might answer. Additionally, explain with examples how their responses could translate into a house affinity score.
