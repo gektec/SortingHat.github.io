@@ -1,27 +1,47 @@
-const log = document.getElementById('log');
-const inputBox = document.getElementById('inputBox');
+const apiKey = "YOUR_OPENAI_API_KEY";  // 硬编码的API密钥
 
-function appendToLog(message, isUser) {
-    const prefix = isUser ? 'You: ' : 'Sorting Hat: ';
-    const messageElement = document.createElement("div");
-    messageElement.textContent = prefix + message;
-    log.appendChild(messageElement);
-}
+document.getElementById('sendButton').addEventListener('click', sendMessage);
+document.getElementById('inputBox').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
 
-function sendInput() {
-    const userInput = inputBox.value.trim();
-    if (userInput) {
-        appendToLog(userInput, true);
-        fetch('API_ENDPOINT', { 
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ user_input: userInput })
-        })
-        .then(response => response.json())
-        .then(data => {
-            appendToLog(data.hat_response, false);
-        })
-        .catch(error => console.error('Error:', error));
-        inputBox.value = '';
+async function sendMessage() {
+    const inputBox = document.getElementById('inputBox');
+    const log = document.getElementById('log');
+    const userMessage = inputBox.value.trim();
+
+    if (!userMessage) {
+        return;
+    }
+
+    inputBox.value = '';
+    log.innerHTML += `<div><strong>You:</strong> ${userMessage}</div>`;
+
+    try {
+        const response = await fetch("https://api.openai-hk.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    { role: "user", content: userMessage }
+                ]
+            })
+        });
+
+        const data = await response.json();
+        const reply = data.choices[0].message.content;
+
+        log.innerHTML += `<div><strong>OpenAI:</strong> ${reply}</div>`;
+        log.scrollTop = log.scrollHeight;
+    } catch (error) {
+        log.innerHTML += `<div><strong>OpenAI:</strong> Error: ${error.message}</div>`;
+        log.scrollTop = log.scrollHeight;
     }
 }
