@@ -1,4 +1,4 @@
-const apiKey = "sk-ca9ff20b4192425b95ed6ae25d804e6a"; 
+const apiKey = ""; 
 
 document.getElementById('sendButton').addEventListener('click', sendMessage);
 document.getElementById('inputBox').addEventListener('keypress', function(e) {
